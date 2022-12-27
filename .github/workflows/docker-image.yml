@@ -8,17 +8,17 @@ on:
 jobs:
 
   build:
-  
+
     runs-on: ubuntu-latest
     
+    env:
+      DOCKER_HUB_USER: ${{secrets.DOCKER_HUB_USER}}
+      DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
     steps:
     
     - uses: actions/checkout@v3
     
     - name: docker login
-      env:
-        DOCKER_HUB_USER: ${{secrets.DOCKER_HUB_USER}}
-        DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
       run: |
         docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
     
