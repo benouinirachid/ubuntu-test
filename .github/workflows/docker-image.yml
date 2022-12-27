@@ -25,5 +25,8 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ubuntu-test:$GITHUB_REF_NAME
     
+    - name: Print output
+      run: echo $DOCKER_HUB_USER/ubuntu-test:$GITHUB_REF_NAME
+
     - name: Docker Push
       run: docker push $DOCKER_HUB_USER/ubuntu-test:$GITHUB_REF_NAME
