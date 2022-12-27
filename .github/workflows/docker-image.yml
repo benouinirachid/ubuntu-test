@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - uses: actions/checkout@v3
+    
+    - name: docker login
+      env:
+        DOCKER_HUB_USER: ${{secrets.DOCKER_HUB_USER}}
+        DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
+      run: |
+        docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+    
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ubuntu-test:$GITHUB_REF_NAME
+    
+    - name: Docker Push
+      run: docker push $DOCKER_HUB_USER/ubuntu-test:$GITHUB_REF_NAME
