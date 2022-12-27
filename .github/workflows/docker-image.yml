@@ -23,7 +23,7 @@ jobs:
         docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
     
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ubuntu-test:$GITHUB_REF_NAME
+      run: docker build . --file Dockerfile --tag $DOCKER_HUB_USER/ubuntu-test:$GITHUB_REF_NAME
     
     - name: Print output
       run: echo $DOCKER_HUB_USER/ubuntu-test:$GITHUB_REF_NAME
